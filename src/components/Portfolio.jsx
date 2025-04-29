@@ -29,6 +29,7 @@ import {
 
 const Portfolio = () => {
   const [profile, setProfile] = useState(null);
+  const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -49,6 +50,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     fetchProfile();
+    fetchSkills();
   }, []);
 
   const fetchProfile = async () => {
@@ -77,6 +79,19 @@ const Portfolio = () => {
     } catch (err) {
       setError("Failed to fetch profile");
       setLoading(false);
+    }
+  };
+
+  const fetchSkills = async () => {
+    try {
+      const response = await fetch("/api/skills");
+      if (!response.ok) {
+        throw new Error("Failed to fetch skills");
+      }
+      const data = await response.json();
+      setSkills(data);
+    } catch (err) {
+      console.error("Failed to fetch skills:", err);
     }
   };
 
@@ -371,8 +386,23 @@ const Portfolio = () => {
                   Skills
                 </Typography>
                 <Box display="flex" flexWrap="wrap" gap={1}>
-                  {profile?.skills?.map((skill, index) => (
-                    <Chip key={index} label={skill} color="primary" />
+                  {skills.map((skill) => (
+                    <Chip
+                      key={skill.id}
+                      label={`${skill.name} - ${skill.category} (${
+                        skill.proficiency
+                      }%) - ${skill.yearsOfExperience || 0} yrs`}
+                      color="primary"
+                      sx={{
+                        p: 1,
+                        height: "auto",
+                        "& .MuiChip-label": {
+                          display: "block",
+                          whiteSpace: "normal",
+                          py: 0.5,
+                        },
+                      }}
+                    />
                   ))}
                 </Box>
               </CardContent>
