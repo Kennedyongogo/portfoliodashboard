@@ -55,7 +55,7 @@ const Portfolio = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch("/api/profile");
+      const response = await fetch("http://38.242.243.113:3035/api/profile");
       if (!response.ok) {
         throw new Error("Failed to fetch profile");
       }
@@ -84,7 +84,7 @@ const Portfolio = () => {
 
   const fetchSkills = async () => {
     try {
-      const response = await fetch("/api/skills");
+      const response = await fetch("http://38.242.243.113:3035/api/skills");
       if (!response.ok) {
         throw new Error("Failed to fetch skills");
       }
