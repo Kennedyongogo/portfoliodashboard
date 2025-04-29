@@ -27,8 +27,6 @@ import {
   Save,
 } from "@mui/icons-material";
 
-const API_URL = process.env.REACT_APP_API_URL || '';
-
 const Portfolio = () => {
   const [profile, setProfile] = useState(null);
   const [skills, setSkills] = useState([]);
@@ -57,7 +55,7 @@ const Portfolio = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/profile`);
+      const response = await fetch("/api/profile");
       if (!response.ok) {
         throw new Error("Failed to fetch profile");
       }
@@ -86,7 +84,7 @@ const Portfolio = () => {
 
   const fetchSkills = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/skills`);
+      const response = await fetch("/api/skills");
       if (!response.ok) {
         throw new Error("Failed to fetch skills");
       }
