@@ -27,8 +27,6 @@ import {
   Save,
 } from "@mui/icons-material";
 
-const API_BASE_URL = "http://localhost:3003";
-
 const Portfolio = () => {
   const [profile, setProfile] = useState(null);
   const [skills, setSkills] = useState([]);
@@ -57,7 +55,7 @@ const Portfolio = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/profile`);
+      const response = await fetch("/api/profile");
       if (!response.ok) {
         throw new Error("Failed to fetch profile");
       }
@@ -86,7 +84,7 @@ const Portfolio = () => {
 
   const fetchSkills = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/skills`);
+      const response = await fetch("/api/skills");
       if (!response.ok) {
         throw new Error("Failed to fetch skills");
       }
@@ -118,7 +116,7 @@ const Portfolio = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${API_BASE_URL}/api/profile`, {
+      const response = await fetch("/api/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
