@@ -191,7 +191,11 @@ const Portfolio = () => {
               <CardMedia
                 component="img"
                 height="300"
-                image={profile?.profileImage || "/default-profile.jpg"}
+                image={
+                  profile?.profileImage
+                    ? `${API_BASE_URL}${profile.profileImage}`
+                    : "/default-profile.jpg"
+                }
                 alt="Profile"
               />
               <CardContent>
