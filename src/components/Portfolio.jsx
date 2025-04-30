@@ -27,6 +27,11 @@ import {
   Save,
 } from "@mui/icons-material";
 
+const API_BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "http://38.242.243.113:3035" // Production API URL
+    : ""; // Empty for development (will use relative paths)
+
 const Portfolio = () => {
   const [profile, setProfile] = useState(null);
   const [skills, setSkills] = useState([]);
@@ -55,7 +60,7 @@ const Portfolio = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch("/api/profile");
+      const response = await fetch(`${API_BASE_URL}/api/profile`);
       if (!response.ok) {
         throw new Error("Failed to fetch profile");
       }
@@ -84,7 +89,7 @@ const Portfolio = () => {
 
   const fetchSkills = async () => {
     try {
-      const response = await fetch("/api/skills");
+      const response = await fetch(`${API_BASE_URL}/api/skills`);
       if (!response.ok) {
         throw new Error("Failed to fetch skills");
       }
@@ -116,7 +121,7 @@ const Portfolio = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/profile", {
+      const response = await fetch(`${API_BASE_URL}/api/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
